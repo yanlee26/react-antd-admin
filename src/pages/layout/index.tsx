@@ -13,10 +13,9 @@ import { setUserItem } from '@/stores/user.store';
 import { getFirstPathCode } from '@/utils/getFirstPathCode';
 import { getGlobalState } from '@/utils/getGloabal';
 
-import { useGuide } from '../guide/useGuide';
 import HeaderComponent from './header';
 import MenuComponent from './menu';
-import TagsView from './tagView';
+// import TagsView from './tagView';
 
 const { Sider, Content } = Layout;
 const WIDTH = 992;
@@ -26,12 +25,11 @@ const LayoutPage: FC = () => {
   const [openKey, setOpenkey] = useState<string>();
   const [selectedKey, setSelectedKey] = useState<string>(location.pathname);
   const [menuList, setMenuList] = useState<MenuList>([]);
-  const { device, collapsed, newUser } = useSelector(state => state.user);
+  const { device, collapsed } = useSelector(state => state.user);
   const token = antTheme.useToken();
 
   const isMobile = device === 'MOBILE';
   const dispatch = useDispatch();
-  const { driverStart } = useGuide();
 
   useEffect(() => {
     const code = getFirstPathCode(location.pathname);
@@ -96,52 +94,29 @@ const LayoutPage: FC = () => {
     };
   }, [dispatch]);
 
-  useEffect(() => {
-    newUser && driverStart();
-  }, [newUser]);
-
   return (
     <Layout className="layout-page">
       <HeaderComponent collapsed={collapsed} toggle={toggle} />
       <Layout>
-        {!isMobile ? (
-          <Sider
-            className="layout-page-sider"
-            trigger={null}
-            collapsible
-            style={{ backgroundColor: token.token.colorBgContainer }}
-            collapsedWidth={isMobile ? 0 : 80}
-            collapsed={collapsed}
-            breakpoint="md"
-          >
-            <MenuComponent
-              menuList={menuList}
-              openKey={openKey}
-              onChangeOpenKey={k => setOpenkey(k)}
-              selectedKey={selectedKey}
-              onChangeSelectedKey={k => setSelectedKey(k)}
-            />
-          </Sider>
-        ) : (
-          <Drawer
-            width="200"
-            placement="left"
-            bodyStyle={{ padding: 0, height: '100%' }}
-            closable={false}
-            onClose={toggle}
-            open={!collapsed}
-          >
-            <MenuComponent
-              menuList={menuList}
-              openKey={openKey}
-              onChangeOpenKey={k => setOpenkey(k)}
-              selectedKey={selectedKey}
-              onChangeSelectedKey={k => setSelectedKey(k)}
-            />
-          </Drawer>
-        )}
+        <Sider
+          className="layout-page-sider"
+          trigger={null}
+          collapsible
+          style={{ backgroundColor: token.token.colorBgContainer }}
+          collapsedWidth={isMobile ? 0 : 80}
+          collapsed={collapsed}
+          breakpoint="md"
+        >
+          <MenuComponent
+            menuList={menuList}
+            openKey={openKey}
+            onChangeOpenKey={k => setOpenkey(k)}
+            selectedKey={selectedKey}
+            onChangeSelectedKey={k => setSelectedKey(k)}
+          />
+        </Sider>
+
         <Content className="layout-page-content">
-          <TagsView />
           <Suspense fallback={null}>
             <Outlet />
           </Suspense>

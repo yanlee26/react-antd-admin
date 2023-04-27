@@ -5,4 +5,5 @@ export const zhCN_component = {
   'component.search.sex': '性别',
   'component.search.male': '男',
   'component.search.female': '女',
+  'component.search.mobile': '电话',
 };
