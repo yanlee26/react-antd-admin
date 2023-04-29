@@ -4,14 +4,10 @@ import './index.less';
 
 import { Typography } from 'antd';
 
-import { LocaleFormatter } from '@/locales';
-
 const RoutePermissionPage: FC = () => {
   return (
     <div className="permission-page">
-      <Typography className="permission-intro">
-        <LocaleFormatter id="gloabal.tips.loginResult" />
-      </Typography>
+      <Typography className="permission-intro">loginResult</Typography>
     </div>
   );
 };

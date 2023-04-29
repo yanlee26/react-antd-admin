@@ -4,7 +4,6 @@ import { SettingOutlined } from '@ant-design/icons';
 import { Dropdown } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { LocaleFormatter } from '@/locales';
 import { removeAllTag, removeOtherTag, removeTag } from '@/stores/tags-view.store';
 
 const TagsViewAction: FC = () => {
@@ -18,17 +17,17 @@ const TagsViewAction: FC = () => {
           {
             key: '0',
             onClick: () => dispatch(removeTag(activeTagId)),
-            label: <LocaleFormatter id="tagsView.operation.closeCurrent" />,
+            label: 'close',
           },
           {
             key: '1',
             onClick: () => dispatch(removeOtherTag()),
-            label: <LocaleFormatter id="tagsView.operation.closeOther" />,
+            label: 'closeOther',
           },
           {
             key: '2',
             onClick: () => dispatch(removeAllTag()),
-            label: <LocaleFormatter id="tagsView.operation.closeAll" />,
+            label: 'closeAll',
           },
           {
             key: '3',
@@ -37,7 +36,7 @@ const TagsViewAction: FC = () => {
           {
             key: '4',
             onClick: () => dispatch(removeOtherTag()),
-            label: <LocaleFormatter id="tagsView.operation.dashboard" />,
+            label: 'dashboard',
           },
         ],
       }}

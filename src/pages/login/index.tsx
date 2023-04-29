@@ -7,7 +7,6 @@ import { Button, Checkbox, Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { LocaleFormatter, useLocale } from '@/locales';
 import { formatSearch } from '@/utils/formatSearch';
 
 import { loginAsync } from '../../stores/user.action';
@@ -22,7 +21,6 @@ const LoginForm: FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { formatMessage } = useLocale();
 
   const onFinished = async (form: LoginParams) => {
     const res = dispatch(await loginAsync(form));
@@ -44,44 +42,29 @@ const LoginForm: FC = () => {
           rules={[
             {
               required: true,
-              message: formatMessage({
-                id: 'gloabal.tips.enterUsernameMessage',
-              }),
+              message: 'enterUsernameMessage',
             },
           ]}
         >
-          <Input
-            placeholder={formatMessage({
-              id: 'gloabal.tips.username',
-            })}
-          />
+          <Input placeholder={'username'} />
         </Form.Item>
         <Form.Item
           name="password"
           rules={[
             {
               required: true,
-              message: formatMessage({
-                id: 'gloabal.tips.enterPasswordMessage',
-              }),
+              message: 'enterPasswordMessage',
             },
           ]}
         >
-          <Input
-            type="password"
-            placeholder={formatMessage({
-              id: 'gloabal.tips.password',
-            })}
-          />
+          <Input type="password" placeholder={'password'} />
         </Form.Item>
         <Form.Item name="remember" valuePropName="checked">
-          <Checkbox>
-            <LocaleFormatter id="gloabal.tips.rememberUser" />
-          </Checkbox>
+          <Checkbox>rememberUser</Checkbox>
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit" type="primary" className="login-page-form_button">
-            <LocaleFormatter id="gloabal.tips.login" />
+            login
           </Button>
         </Form.Item>
       </Form>
