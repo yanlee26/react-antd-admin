@@ -2,24 +2,14 @@ import type { FC } from 'react';
 
 import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, theme as antTheme, Tooltip } from 'antd';
-import { createElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Avator from '@/assets/header/avator.jpeg';
-import { ReactComponent as EnUsSvg } from '@/assets/header/en_US.svg';
-import { ReactComponent as LanguageSvg } from '@/assets/header/language.svg';
-import { ReactComponent as MoonSvg } from '@/assets/header/moon.svg';
-import { ReactComponent as SunSvg } from '@/assets/header/sun.svg';
-import { ReactComponent as ZhCnSvg } from '@/assets/header/zh_CN.svg';
 import AntdSvg from '@/assets/logo/antd.svg';
 import ReactSvg from '@/assets/logo/react.svg';
-import { LocaleFormatter, useLocale } from '@/locales';
-import { setGlobalState } from '@/stores/global.store';
-import { setUserItem } from '@/stores/user.store';
 
 import { logoutAsync } from '../../stores/user.action';
-import HeaderNoticeComponent from './notice';
 
 const { Header } = Layout;
 
@@ -31,12 +21,10 @@ interface HeaderProps {
 type Action = 'userInfo' | 'userSetting' | 'logout';
 
 const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
-  const { logged, locale, device } = useSelector(state => state.user);
-  const { theme } = useSelector(state => state.global);
+  const { logged, device } = useSelector(state => state.user);
   const navigate = useNavigate();
   const token = antTheme.useToken();
   const dispatch = useDispatch();
-  const { formatMessage } = useLocale();
 
   const onActionClick = async (action: Action) => {
     switch (action) {
@@ -55,22 +43,6 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
 
   const toLogin = () => {
     navigate('/login');
-  };
-
-  const selectLocale = ({ key }: { key: any }) => {
-    dispatch(setUserItem({ locale: key }));
-    localStorage.setItem('locale', key);
-  };
-
-  const onChangeTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-
-    localStorage.setItem('theme', newTheme);
-    dispatch(
-      setGlobalState({
-        theme: newTheme,
-      }),
-    );
   };
 
   return (
@@ -93,20 +65,12 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
                   {
                     key: '1',
                     icon: <UserOutlined />,
-                    label: (
-                      <span onClick={() => navigate('/dashboard')}>
-                        <LocaleFormatter id="header.avator.account" />
-                      </span>
-                    ),
+                    label: <span onClick={() => navigate('/dashboard')}>account</span>,
                   },
                   {
                     key: '2',
                     icon: <LogoutOutlined />,
-                    label: (
-                      <span onClick={() => onActionClick('logout')}>
-                        <LocaleFormatter id="header.avator.logout" />
-                      </span>
-                    ),
+                    label: <span onClick={() => onActionClick('logout')}>logout</span>,
                   },
                 ],
               }}
@@ -117,7 +81,7 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
             </Dropdown>
           ) : (
             <span style={{ cursor: 'pointer' }} onClick={toLogin}>
-              {formatMessage({ id: 'gloabal.tips.login' })}
+              login
             </span>
           )}
         </div>

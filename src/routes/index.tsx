@@ -14,7 +14,8 @@ import WrapperRouteComponent from './config';
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const Io = lazy(() => import(/* webpackChunkName: "io'"*/ '@/pages/io'));
 const La = lazy(() => import(/* webpackChunkName: "la"*/ '@/pages/la'));
-const Detail = lazy(() => import(/* webpackChunkName: "detail'"*/ '@/pages/detail'));
+const IODetail = lazy(() => import(/* webpackChunkName: "detail'"*/ '@/pages/detail/io-detail'));
+const LADetail = lazy(() => import(/* webpackChunkName: "detail'"*/ '@/pages/detail/la-detail'));
 
 const routeList: RouteObject[] = [
   {
@@ -39,7 +40,7 @@ const routeList: RouteObject[] = [
       },
       {
         path: 'io/detail',
-        element: <WrapperRouteComponent element={<Detail />} titleId="家庭资产负债详情" />,
+        element: <WrapperRouteComponent element={<IODetail />} titleId="家庭资产负债详情" />,
       },
       {
         path: 'la',
@@ -47,7 +48,7 @@ const routeList: RouteObject[] = [
       },
       {
         path: 'la/detail',
-        element: <WrapperRouteComponent element={<Detail />} titleId="家庭资产负债详情" />,
+        element: <WrapperRouteComponent element={<LADetail />} titleId="家庭资产负债详情" />,
       },
       {
         path: '*',
