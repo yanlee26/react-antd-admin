@@ -1,7 +1,6 @@
 import 'dayjs/locale/zh-cn';
 
 import { ConfigProvider, Spin, theme as a } from 'antd';
-import dayjs from 'dayjs';
 import { Suspense, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,7 +42,7 @@ const App: React.FC = () => {
   return (
     <ConfigProvider
       componentSize="middle"
-      theme={{ token: { colorPrimary: '#13c2c2' }, algorithm: theme === 'dark' ? a.darkAlgorithm : a.defaultAlgorithm }}
+      theme={{ token: { colorPrimary: '#1677ff' }, algorithm: theme === 'dark' ? a.darkAlgorithm : a.defaultAlgorithm }}
     >
       <IntlProvider locale={locale.split('_')[0]}>
         <HistoryRouter history={history}>

@@ -1,3 +1,6 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
+
 export function IndexDisplay({
   val,
   txt,
@@ -20,3 +23,18 @@ export function IndexDisplay({
 }
 
 export const style: React.CSSProperties = { padding: '8px 0' };
+
+export function Info({ tip, txt }: { tip: string; txt: string }) {
+  return (
+    <div
+      style={{
+        ...style,
+      }}
+    >
+      <Tooltip title={tip}>
+        <span style={{ paddingRight: 4 }}>{txt}</span>
+        <InfoCircleOutlined />
+      </Tooltip>
+    </div>
+  );
+}
