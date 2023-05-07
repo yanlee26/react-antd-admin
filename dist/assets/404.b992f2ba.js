@@ -1,1 +1,0 @@
-import{g as e,j as t,B as s,q as o}from"./vendor.80474528.js";const r=()=>{const a=e();return t(o,{status:"404",title:"404",subTitle:"notfound",extra:t(s,{type:"primary",onClick:()=>a("/"),children:"back"})})};export{r as default};
