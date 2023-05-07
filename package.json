@@ -2,6 +2,7 @@
   "name": "react-antd-admin",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/react-antd-admin/dist",
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
     "@emotion/core": "^11.0.0",
