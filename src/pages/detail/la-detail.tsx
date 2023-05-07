@@ -1,56 +1,14 @@
 import { Button, Col, Divider, Row } from 'antd';
 import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { AdvancedSearchForm } from './AdvancedForm';
 import { alItems, flatJson, genSummaries, getPercent, notes, summary } from './config';
 import { IndexDisplay, Info, style } from './IndexDisplay';
 
-const json = {
-  step0: {
-    '0item0': 2,
-    '0item1': 2,
-    '0item2': 1,
-    '0item3': 1,
-  },
-  step1: {
-    '1item0': 1,
-    '1item1': 1,
-  },
-  step2: {
-    '2item0': 1,
-    '2item1': 1,
-    '2item2': 1,
-    '2item3': 1,
-  },
-  step3: {
-    '3item1': 1,
-    '3item2': 2,
-    '3item3': 1,
-  },
-  step4: {
-    '4item0': 3,
-    '4item1': 1,
-    '4item2': 1,
-  },
-  step5: {
-    '5item0': 3,
-    '5item1': 1,
-    '5item2': 1,
-  },
-  step6: {
-    '6item0': 1,
-    '6item1': 1,
-  },
-  step7: {
-    '7item0': 1,
-    '7item1': 1,
-    '7item2': 1,
-  },
-};
-
 const Detail: React.FC = () => {
-  const [values, setValues] = useState(() => flatJson(json));
+  const location = useLocation();
+  const [values, setValues] = useState(() => flatJson(location.state.JsonData));
 
   const navigate = useNavigate();
 

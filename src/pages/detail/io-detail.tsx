@@ -8,8 +8,7 @@ import { IndexDisplay, Info, style } from './IndexDisplay';
 
 const Detail: React.FC = () => {
   const location = useLocation();
-
-  const [values, setValues] = useState(() => flatJson(location.state.sheetData));
+  const [values, setValues] = useState(() => flatJson(location.state.JsonData));
 
   const navigate = useNavigate();
 

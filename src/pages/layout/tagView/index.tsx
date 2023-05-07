@@ -80,7 +80,7 @@ const TagsView: FC = () => {
           return {
             key: tag.path,
             closable: tag.closable,
-            label: tag.label[locale],
+            label: tag.label,
           };
         })}
       />

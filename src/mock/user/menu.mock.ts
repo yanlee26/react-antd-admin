@@ -2,7 +2,7 @@ import type { MenuList } from '@/interface/layout/menu.interface';
 
 import { intercepter, mock } from '../config';
 
-const mockMenuList: MenuList = [
+export const mockMenuList: MenuList = [
   {
     code: 'dashboard',
     label: '首页',

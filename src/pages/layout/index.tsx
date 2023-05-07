@@ -3,19 +3,18 @@ import type { FC } from 'react';
 
 import './index.less';
 
-import { Drawer, Layout, theme as antTheme } from 'antd';
+import { Layout, theme as antTheme } from 'antd';
 import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation } from 'react-router';
 
-import { getMenuList } from '@/api/layout.api';
+import { mockMenuList } from '@/mock/user/menu.mock';
 import { setUserItem } from '@/stores/user.store';
 import { getFirstPathCode } from '@/utils/getFirstPathCode';
 import { getGlobalState } from '@/utils/getGloabal';
 
 import HeaderComponent from './header';
 import MenuComponent from './menu';
-// import TagsView from './tagView';
 
 const { Sider, Content } = Layout;
 const WIDTH = 992;
@@ -63,9 +62,9 @@ const LayoutPage: FC = () => {
   };
 
   const fetchMenuList = useCallback(async () => {
-    const { status, result } = await getMenuList();
+    const result = mockMenuList;
 
-    if (status) {
+    if (true) {
       setMenuList(result);
       dispatch(
         setUserItem({

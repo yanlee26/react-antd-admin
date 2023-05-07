@@ -5,10 +5,21 @@ import axios from 'axios';
 
 import store from '@/stores';
 import { setGlobalState } from '@/stores/global.store';
-// import { history } from '@/routes/history';
 
 const axiosInstance = axios.create({
   timeout: 6000,
+  baseURL: 'http://localhost:1357',
+  paramsSerializer: params => {
+    const filteredParams: any = {};
+
+    for (const key in params) {
+      if (params.hasOwnProperty(key) && params[key] !== '') {
+        filteredParams[key] = params[key];
+      }
+    }
+
+    return new URLSearchParams(filteredParams).toString();
+  },
 });
 
 axiosInstance.interceptors.request.use(
@@ -68,6 +79,7 @@ axiosInstance.interceptors.response.use(
       status: false,
       message: errorMessage,
       result: null,
+      data: { data: null },
     };
   },
 );

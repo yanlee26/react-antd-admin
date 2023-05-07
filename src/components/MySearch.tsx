@@ -7,10 +7,11 @@ import MyForm from '@/components/core/form';
 
 interface SearchProps<T> extends MyFormProps<T> {
   onSearch: (values: T) => void;
+  onReset: () => void;
 }
 
 const BaseSearch = <T extends object>(props: SearchProps<T>) => {
-  const { children, onSearch, ...rest } = props;
+  const { children, onSearch, onReset, ...rest } = props;
   const [form] = MyForm.useForm<T>();
 
   const onSubmit = async () => {
@@ -21,6 +22,11 @@ const BaseSearch = <T extends object>(props: SearchProps<T>) => {
     }
   };
 
+  function reset() {
+    form.resetFields();
+    onReset();
+  }
+
   return (
     <div css={styles}>
       <MyForm {...rest} form={form} layout="inline">
@@ -30,7 +36,7 @@ const BaseSearch = <T extends object>(props: SearchProps<T>) => {
             搜索
           </MyButton>
 
-          <MyButton onClick={() => form.resetFields()}>重置</MyButton>
+          <MyButton onClick={reset}>重置</MyButton>
         </MyForm.Item>
       </MyForm>
     </div>

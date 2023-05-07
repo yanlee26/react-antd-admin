@@ -1,85 +1,38 @@
-import type { DataType } from '@/types';
+import type { FamilyItem } from '@/interface/family';
 import type { ColumnsType } from 'antd/es/table';
 import type { FC } from 'react';
 
 import { Button, Space, Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
+import { getFamilyIOList, getFamilyLAList } from '@/api/family';
 import MyFormItem from '@/components/core/form-item';
 import MySearch from '@/components/MySearch';
-
-const json = {
-  step0: {
-    '0item0': 2,
-    '0item1': 2,
-    '0item2': 1,
-    '0item3': 1,
-  },
-  step1: {
-    '1item0': 1,
-    '1item1': 1,
-    '1item2': 1,
-    '1item3': 2,
-    '1item4': 1,
-  },
-  step2: {
-    '2item0': 1,
-  },
-  step3: {
-    '3item1': 1,
-    '3item2': 1,
-    '3item3': 1,
-  },
-  step4: {
-    '4item0': 3,
-    '4item1': 1,
-    '4item2': 1,
-  },
-  step5: {
-    '5item0': 3,
-    '5item1': 1,
-    '5item2': 1,
-  },
-  step6: {
-    '6item0': 1,
-    '6item1': 1,
-  },
-};
-const data: DataType[] = [
-  {
-    mobile: '123456789',
-    wechat: 'wechat1',
-    sheetData: json,
-  },
-  {
-    mobile: '123456789',
-    wechat: 'wechat1',
-    sheetData: json,
-  },
-  {
-    mobile: '123456789',
-    wechat: 'wechat1',
-    sheetData: json,
-  },
-];
+import { useCommonListPageFetch } from '@/hooks/useCommonListPageFetch';
 
 export const BusinessTable: FC<{ isIO: boolean }> = ({ isIO = true }) => {
   const navigate = useNavigate();
 
-  const getDetails = (record: DataType) => {
+  const { pagination, data, memoSetSearchParams, onResetSearchParams } = useCommonListPageFetch<any, any>(
+    isIO ? getFamilyIOList : getFamilyLAList,
+    {},
+    { list: [], total: 0 },
+  );
+
+  const getDetails = (record: FamilyItem) => {
     navigate('/io/detail', {
       state: record,
     });
   };
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<FamilyItem> = [
     {
       title: '手机号',
-      dataIndex: 'mobile',
+      dataIndex: 'Mobile',
     },
     {
       title: '微信号',
-      dataIndex: 'wechat',
+      dataIndex: 'Wechat',
     },
     {
       title: '操作',
@@ -95,16 +48,22 @@ export const BusinessTable: FC<{ isIO: boolean }> = ({ isIO = true }) => {
   ];
 
   const onSearch = (values: any) => {
-    console.log(values);
+    memoSetSearchParams(values);
   };
 
   return (
     <div>
-      <MySearch onSearch={onSearch}>
+      <MySearch onSearch={onSearch} onReset={onResetSearchParams}>
         <MyFormItem label={'手机号'} type="input" name="mobile" />
         <MyFormItem label={'微信号'} type="input" name="wechat" />
       </MySearch>
-      <Table columns={columns} dataSource={data} />
+      <Table
+        scroll={{ x: 'max-content', y: 800 }}
+        columns={columns}
+        rowKey={'ID'}
+        dataSource={data.list || []}
+        pagination={pagination}
+      />
     </div>
   );
 };
