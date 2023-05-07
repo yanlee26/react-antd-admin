@@ -1,6 +1,6 @@
 import { createBrowserHistory } from 'history';
 import React from 'react';
-import { Router } from 'react-router-dom';
+import { HashRouter, Router } from 'react-router-dom';
 
 export const history = createBrowserHistory();
 
@@ -18,5 +18,5 @@ export const HistoryRouter: React.FC<HistoryRouterProps> = ({ history, children 
     history.listen(setState);
   }, [history]);
 
-  return React.createElement(Router, Object.assign({ children, navigator: history }, state));
+  return React.createElement(HashRouter, Object.assign({ children, navigator: history }, state));
 };
