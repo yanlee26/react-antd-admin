@@ -6,7 +6,7 @@ import svgrPlugin from 'vite-plugin-svgr';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/react-antd-admin',
+  base: '/react-antd-admin/dist',
   // publicDir: process.env.NODE_ENV === 'production' ? '/react-antd-admin/' : '/',
   resolve: {
     alias: {
