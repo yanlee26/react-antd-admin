@@ -1,0 +1,1 @@
+import{B as e}from"./BusinessTable.211a2f74.js";import{j as s}from"./vendor.585e1dbd.js";import"./family.35f44f83.js";import"./index.b97b14d2.js";const d=()=>s("div",{children:s(e,{isIO:!1})});export{d as default};
