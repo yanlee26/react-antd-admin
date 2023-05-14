@@ -12,11 +12,8 @@ const Detail: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const summaries = useMemo(() => {
-    return genSummaries(values);
-  }, [values]);
-
   const totalSummaries = useMemo(() => {
+    const summaries = genSummaries(values);
     const H = summary([summaries.A, summaries.B, summaries.C]);
     const K = summary([summaries.D, summaries.E, summaries.F, summaries.G]);
     const J = H - K;
@@ -24,6 +21,7 @@ const Detail: React.FC = () => {
     const B = summaries.B;
 
     return {
+      summaries,
       J,
       H,
       B,
@@ -33,7 +31,7 @@ const Detail: React.FC = () => {
       DH: getPercent(D, H),
       BK: getPercent(B, K),
     };
-  }, [summaries]);
+  }, [values]);
 
   function goBack() {
     navigate(-1);
@@ -97,7 +95,7 @@ const Detail: React.FC = () => {
         formItems={ioItems}
         initialValues={values}
         setValue={setValues}
-        summaryEntries={Object.entries(summaries)}
+        summaryEntries={Object.entries(totalSummaries.summaries)}
       />
     </div>
   );

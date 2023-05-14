@@ -20,7 +20,7 @@ export const BusinessTable: FC<{ isIO: boolean }> = ({ isIO = true }) => {
   );
 
   const getDetails = (record: FamilyItem) => {
-    navigate('/io/detail', {
+    navigate(`/${isIO ? 'io' : 'la'}/detail/${record.Mobile}`, {
       state: record,
     });
   };

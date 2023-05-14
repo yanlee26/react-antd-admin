@@ -39,7 +39,7 @@ const routeList: RouteObject[] = [
         element: <WrapperRouteComponent element={<Io />} titleId="家庭收入支出管理" />,
       },
       {
-        path: 'io/detail',
+        path: 'io/detail/:mobile',
         element: <WrapperRouteComponent element={<IODetail />} titleId="家庭资产负债详情" />,
       },
       {
@@ -47,7 +47,7 @@ const routeList: RouteObject[] = [
         element: <WrapperRouteComponent element={<La />} titleId="家庭资产负债管理" />,
       },
       {
-        path: 'la/detail',
+        path: 'la/detail/:mobile',
         element: <WrapperRouteComponent element={<LADetail />} titleId="家庭资产负债详情" />,
       },
       {

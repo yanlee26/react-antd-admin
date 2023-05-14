@@ -1,6 +1,9 @@
 import { Button, Col, Divider, Row } from 'antd';
 import { useMemo, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import { getFamilyIODetail } from '@/api/family';
+import { useAsyncData } from '@/hooks/useAsync';
 
 import { AdvancedSearchForm } from './AdvancedForm';
 import { alItems, flatJson, genSummaries, getPercent, notes, summary } from './config';
@@ -8,16 +11,19 @@ import { IndexDisplay, Info, style } from './IndexDisplay';
 
 const Detail: React.FC = () => {
   const location = useLocation();
-  const [values, setValues] = useState(() => flatJson(location.state.JsonData));
+  const { mobile } = useParams();
+
+  const [values, setValues] = useState(() => flatJson(location.state?.JsonData));
 
   const navigate = useNavigate();
 
-  const summaries = useMemo(() => {
-    return genSummaries(values, 8);
-  }, [values]);
+  const { data: detailData } = useAsyncData(getFamilyIODetail, { JsonData: {} }, { mobile, idx: 2 });
 
   const totalSummaries = useMemo(() => {
-    const K = 12 || 0; // TODO api 获取
+    const summaries = genSummaries(values, 8);
+    const ioSummaries = genSummaries(flatJson(detailData?.JsonData));
+    const K = summary([ioSummaries.D, ioSummaries.E, ioSummaries.F, ioSummaries.G]) || 0;
+
     const Z = summary(['S', 'T', 'U'].map(x => summaries[x]));
     const X = summary(['M', 'N', 'P', 'Q', 'R'].map(x => summaries[x]));
 
@@ -27,6 +33,7 @@ const Detail: React.FC = () => {
     const Q = summaries['Q'];
 
     return {
+      summaries,
       Q,
       V,
       K,
@@ -38,9 +45,9 @@ const Detail: React.FC = () => {
       VW: getPercent(V, W),
       QY: getPercent(Q, Y),
     };
-  }, [summaries]);
+  }, [values, detailData]);
 
-  console.log(summaries, totalSummaries);
+  console.log(totalSummaries);
 
   function goBack() {
     navigate(-1);
@@ -114,7 +121,7 @@ const Detail: React.FC = () => {
         formItems={alItems}
         initialValues={values}
         setValue={setValues}
-        summaryEntries={Object.entries(summaries)}
+        summaryEntries={Object.entries(totalSummaries.summaries)}
       />
     </div>
   );

@@ -17,10 +17,10 @@ export const ioItems = [
     title: '被动收入',
     items: getItems(['房租', '投资收益', '分红', '利息']),
   },
-  {
-    title: '其它收入',
-    items: getItems([]),
-  },
+  // {
+  //   title: '其它收入',
+  //   items: getItems([]),
+  // },
   {
     title: '负债性支出',
     items: getItems(['房贷', '车贷', '信用贷']),
@@ -75,6 +75,8 @@ export const alItems = [
 ];
 
 export function flatJson(d: object) {
+  if (!d) return {};
+
   return Object.values(d).reduce((re, x) => Object.assign(re, x), {});
 }
 
@@ -97,6 +99,8 @@ export function genSummaries(flatData: object, num = 7) {
 }
 
 export function summary(items: number[]) {
+  if (!items) return 0;
+
   return items.reduce((re, x) => (re += x), 0);
 }
 

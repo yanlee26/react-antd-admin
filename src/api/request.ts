@@ -6,9 +6,11 @@ import axios from 'axios';
 import store from '@/stores';
 import { setGlobalState } from '@/stores/global.store';
 
+const url = process.env.NODE_ENV === 'development' ? 'http://localhost:1357' : 'http://47.96.25.9:1357';
+
 const axiosInstance = axios.create({
   timeout: 6000,
-  baseURL: 'http://localhost:1357',
+  baseURL: url,
   paramsSerializer: params => {
     const filteredParams: any = {};
 
